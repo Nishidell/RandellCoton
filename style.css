@@ -420,6 +420,137 @@ body {
     margin-bottom: 0 !important;
 }
 
+/* --- THE STORYBOOK JOURNEY --- */
+.storybook {
+    display: flex;
+    max-width: 900px;
+    margin: 0 auto;
+    
+    /* VINTAGE PAPER TEXTURE */
+    background-color: #fdf8e9; 
+    background-image: radial-gradient(#e6dcc8 1px, transparent 1px);
+    background-size: 10px 10px; /* Creates a very subtle dotted/grainy paper feel */
+    
+    border-radius: 5px 15px 15px 5px; 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 5px 15px rgba(0,0,0,0.05); 
+    position: relative;
+}
+
+/* --- THE RED RIBBON BOOKMARK --- */
+.bookmark-ribbon {
+    position: absolute;
+    top: -10px; /* Hangs slightly over the top of the book */
+    left: 50%;
+    transform: translateX(-50%); /* Centers it exactly on the spine */
+    width: 35px;
+    height: 120px;
+    background-color: #d14949; /* Kiki's Bow Red */
+    z-index: 10;
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.2);
+    
+    /* This cuts the bottom of the ribbon into that classic "V" shape! */
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%);
+}
+
+/* --- JIJI MASCOT PLACEMENT (Hanging) --- */
+.jiji-book-mascot {
+    position: absolute;
+    top: 10px; /* Adjusts him down so his paws grip the top edge */
+    right: 20px; /* Keeps him perched on the right page */
+    width: 120px; /* Makes him significantly bigger! */
+    z-index: 15;
+    
+    /* We change the pivot point to his paws (top center) so he swings naturally */
+    transform-origin: top center; 
+    animation: swing 4s ease-in-out infinite; 
+}
+
+/* A gentle side-to-side swinging animation instead of floating */
+@keyframes swing {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+}
+
+/* Common Page Styles */
+.page {
+    flex: 1; /* Makes both pages equal width */
+    padding: 50px 40px;
+    position: relative;
+}
+
+/* The Left Page (The Binding) */
+.left-page {
+    border-right: 1px solid #d4c5b0; /* The physical split */
+    /* This inset shadow creates the curve of the book's spine! */
+    box-shadow: inset -15px 0 20px rgba(0,0,0,0.04);
+    border-radius: 5px 0 0 5px;
+}
+
+/* The Right Page (The Binding) */
+.right-page {
+    /* Opposite inset shadow for the other side of the spine */
+    box-shadow: inset 15px 0 20px rgba(0,0,0,0.04);
+    border-radius: 0 15px 15px 5px;
+}
+
+/* Typography inside the book */
+.chapter-title {
+    font-size: 1.8rem;
+    color: #d14949; /* Deep red for chapter headings */
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #d4c5b0;
+    padding-bottom: 5px;
+}
+
+.page-date {
+    display: block;
+    font-size: 0.9rem;
+    color: #8caba1;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.page p {
+    color: #4a5d4e;
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 1.2rem;
+    color: #a89f91;
+}
+
+/* --- MOBILE RESPONSIVENESS (The Scroll) --- */
+@media (max-width: 768px) {
+    .storybook {
+        flex-direction: column; /* Stacks the pages on phones */
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .left-page, .right-page {
+        box-shadow: none; /* Removes the spine effect on mobile */
+        border-right: none;
+        border-bottom: 1px dashed #d4c5b0; /* Just a line between pages */
+    }
+}
+
+/* --- HOWL'S MAGIC DIAL & SKILLS --- */
+.howls-dial-container { margin-bottom: 40px; }
+.howls-dial { display: flex; gap: 15px; background-color: #d4c5b0; padding: 15px 25px; border-radius: 50px; box-shadow: inset 0 4px 8px rgba(0,0,0,0.2); }
+.dial-color { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: transform 0.3s, border 0.3s, box-shadow 0.3s; }
+.dial-color.active { transform: scale(1.15); border: 3px solid #fcf4e8; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+.dial-color:hover { transform: scale(1.1); }
+
+.skills-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 800px; margin: 0 auto; }
+.skill-card { background-color: white; color: #4a5d4e; padding: 12px 24px; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 2px solid #ebf4e6; transition: transform 0.3s, opacity 0.3s; }
+.skill-card:hover { transform: scale(1.05); }
+
+/* The Global Spell Toggle */
+.hidden-magic { display: none !important; }
+
 /* 
    MOBILE View (Phones & Small Tablets)
 */
