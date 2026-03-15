@@ -455,9 +455,9 @@ body {
 /* --- JIJI MASCOT PLACEMENT (Hanging) --- */
 .jiji-book-mascot {
     position: absolute;
-    top: 10px; /* Adjusts him down so his paws grip the top edge */
-    right: 20px; /* Keeps him perched on the right page */
-    width: 120px; /* Makes him significantly bigger! */
+    top: 0px; /* Adjusts him down so his paws grip the top edge */
+    right: -130px; /* Keeps him perched on the right page */
+    width: 150px; /* Makes him significantly bigger! */
     z-index: 15;
     
     /* We change the pivot point to his paws (top center) so he swings naturally */
@@ -471,26 +471,15 @@ body {
     50% { transform: rotate(4deg); }
 }
 
-/* Common Page Styles */
-.page {
-    flex: 1; /* Makes both pages equal width */
-    padding: 50px 40px;
-    position: relative;
-}
-
-/* The Left Page (The Binding) */
-.left-page {
-    border-right: 1px solid #d4c5b0; /* The physical split */
-    /* This inset shadow creates the curve of the book's spine! */
-    box-shadow: inset -15px 0 20px rgba(0,0,0,0.04);
-    border-radius: 5px 0 0 5px;
-}
-
-/* The Right Page (The Binding) */
-.right-page {
-    /* Opposite inset shadow for the other side of the spine */
-    box-shadow: inset 15px 0 20px rgba(0,0,0,0.04);
-    border-radius: 0 15px 15px 5px;
+/* --- 3D BOOK PAGES --- */
+.my-page {
+    /* We move the vintage texture directly onto the individual pages */
+    background-color: #fdf8e9; 
+    background-image: radial-gradient(#e6dcc8 1px, transparent 1px);
+    background-size: 10px 10px;
+    padding: 40px;
+    border: 1px solid #e6dcc8; /* Creates a slight edge to the paper */
+    overflow: hidden;
 }
 
 /* Typography inside the book */
@@ -522,6 +511,53 @@ body {
     right: 30px;
     font-size: 1.2rem;
     color: #a89f91;
+}
+
+/* --- SLIDING BOOK MECHANICS --- */
+.storybook-wrapper {
+    overflow: hidden; 
+    margin: 0 60px; /* Creates 60px of blank space on the left and right for the arrows! */
+    width: 100%;
+    position: relative;
+    max-width: 1000px; /* Wider to fit the arrows */
+    display: flex;
+    align-items: center;
+}
+
+.storybook {
+    overflow: hidden; /* This hides Spread 2 until we slide it in! */
+}
+
+
+/* --- NAVIGATION ARROWS --- */
+.book-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #8caba1;
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.book-nav:hover {
+    background-color: #4a5d4e;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.left-arrow { left: 0; }
+.right-arrow { right: 0; }
+
+.hidden-arrow {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* --- MOBILE RESPONSIVENESS (The Scroll) --- */
