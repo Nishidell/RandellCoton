@@ -114,12 +114,14 @@
     <section id="skills" class="panel" style="flex-direction: column;">
         <h2 style="font-size: 2.8rem; margin-bottom: 20px; color: #4a5d4e;">My Magic & Tools</h2>
         
-        <div class="howls-dial-container">
-            <div class="howls-dial">
-                <button class="dial-color active" data-target="all" style="background-color: #4a5d4e;" title="Green: All Magic"></button>
-                <button class="dial-color" data-target="web" style="background-color: #4b8bbe;" title="Blue: Web Development"></button>
-                <button class="dial-color" data-target="soc" style="background-color: #d14949;" title="Red: Cybersecurity"></button>
-                <button class="dial-color" data-target="tools" style="background-color: #2c2c2c;" title="Black: General Tools"></button>
+        <div class="door-dial-wrapper">
+            <div class="dial-pointer"></div>
+            
+            <div class="magic-wheel" id="magic-wheel">
+                <div class="quadrant green" data-target="all" data-theme="theme-default" data-rotation="45" title="The Present (All)"></div>
+                <div class="quadrant black" data-target="tools" data-theme="theme-black" data-rotation="-45" title="The Wastes (Tools)"></div>
+                <div class="quadrant blue" data-target="web" data-theme="theme-blue" data-rotation="135" title="Port Haven (Web)"></div>
+                <div class="quadrant red" data-target="soc" data-theme="theme-red" data-rotation="-135" title="Kingsbury (SOC)"></div>
             </div>
         </div>
 
@@ -238,7 +240,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
     <script src="script.js"></script>
-    <script src="skills.js"></script>
+    <script src="skill.js"></script>
     <script src="storybook.js"></script>
 </body>
 </html>

@@ -573,16 +573,112 @@ body {
     }
 }
 
-/* --- HOWL'S MAGIC DIAL & SKILLS --- */
-.howls-dial-container { margin-bottom: 40px; }
-.howls-dial { display: flex; gap: 15px; background-color: #d4c5b0; padding: 15px 25px; border-radius: 50px; box-shadow: inset 0 4px 8px rgba(0,0,0,0.2); }
-.dial-color { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: transform 0.3s, border 0.3s, box-shadow 0.3s; }
-.dial-color.active { transform: scale(1.15); border: 3px solid #fcf4e8; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
-.dial-color:hover { transform: scale(1.1); }
+/* --- HOWL'S MAGIC DOOR DIAL --- */
+.door-dial-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 50px auto;
+}
 
-.skills-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 800px; margin: 0 auto; }
-.skill-card { background-color: white; color: #4a5d4e; padding: 12px 24px; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 2px solid #ebf4e6; transition: transform 0.3s, opacity 0.3s; }
-.skill-card:hover { transform: scale(1.05); }
+/* The Little Metal Arrow at the top */
+.dial-pointer {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; 
+    height: 0; 
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 18px solid #4a5d4e; /* Dark green metal pointer */
+    z-index: 10;
+    filter: drop-shadow(0 3px 3px rgba(0,0,0,0.3));
+}
+
+/* The Wheel Itself */
+.magic-wheel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 6px solid #d4c5b0; /* Vintage brass housing */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 0 10px rgba(0,0,0,0.5);
+    /* This makes the wheel physically spin when we change the rotation in JS! */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+    transform: rotate(45deg); /* Default starting position (Green at the top) */
+}
+
+/* The 4 Magic Colors */
+.quadrant { cursor: pointer; transition: filter 0.3s; }
+.quadrant:hover { filter: brightness(1.2); }
+.quadrant.green { background-color: #7ab547; }
+.quadrant.black { background-color: #2b2b2b; }
+.quadrant.blue { background-color: #4b8bbe; }
+.quadrant.red { background-color: #d14949; }
+
+/* --- SKILLS GRID --- */
+.skills-grid { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 15px; 
+    justify-content: center; 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
+
+.skill-card { 
+    background-color: white; 
+    color: #4a5d4e; 
+    padding: 12px 24px; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+    border: 2px solid #ebf4e6; 
+    transition: transform 0.3s, opacity 0.3s; 
+}
+
+.skill-card:hover { 
+    transform: scale(1.05); 
+}
+
+
+/* ==========================================
+   GLOBAL THEME SPELLS (Environmental Shift)
+   ========================================== */
+
+/* Smoothly transitions colors across the whole page */
+body, .panel, .content-box, .project-card, .skill-card, .my-page, h1, h2, h3, p, .card-link {
+    transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease;
+}
+
+/* --- BLUE THEME (Port Haven) --- */
+body.theme-blue { background-color: #e6f0fa; color: #2c4763; }
+body.theme-blue #about, body.theme-blue #journey, body.theme-blue #skills, body.theme-blue #projects { background-color: #e6f0fa; }
+body.theme-blue .content-box, body.theme-blue .project-card, body.theme-blue .skill-card, body.theme-blue .my-page { background-color: #ffffff; color: #2c4763; border: 1px solid #b3cce6; }
+body.theme-blue h1, body.theme-blue h2, body.theme-blue h3 { color: #1f3752; border-bottom-color: #b3cce6;}
+body.theme-blue .card-link { background-color: #6a9ac4; }
+body.theme-blue .site-footer { background-image: linear-gradient(rgba(44, 71, 99, 0.85), rgba(44, 71, 99, 0.95)), url('images/background3.gif'); }
+
+/* --- RED THEME (Kingsbury) --- */
+body.theme-red { background-color: #faebeb; color: #5c2424; }
+body.theme-red #about, body.theme-red #journey, body.theme-red #skills, body.theme-red #projects { background-color: #faebeb; }
+body.theme-red .content-box, body.theme-red .project-card, body.theme-red .skill-card, body.theme-red .my-page { background-color: #ffffff; color: #5c2424; border: 1px solid #e6b3b3; }
+body.theme-red h1, body.theme-red h2, body.theme-red h3 { color: #4a1c1c; border-bottom-color: #e6b3b3; }
+body.theme-red .card-link { background-color: #d16b6b; }
+body.theme-red .site-footer { background-image: linear-gradient(rgba(92, 36, 36, 0.85), rgba(92, 36, 36, 0.95)), url('images/background3.gif'); }
+
+/* --- BLACK THEME (The Wastes / Dark Mode) --- */
+body.theme-black { background-color: #1a1a1a; color: #e0e0e0; }
+body.theme-black #about, body.theme-black #journey, body.theme-black #skills, body.theme-black #projects { background-color: #1a1a1a; }
+body.theme-black .content-box, body.theme-black .project-card, body.theme-black .skill-card, body.theme-black .my-page { background-color: #2b2b2b; color: #e0e0e0; border: 1px solid #444; }
+body.theme-black h1, body.theme-black h2, body.theme-black h3 { color: #ffffff; border-bottom-color: #555; }
+body.theme-black .card-link { background-color: #555555; }
+body.theme-black p, body.theme-black .page-date, body.theme-black .chapter-title { color: #cccccc; }
+body.theme-black .site-footer { background-image: linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.98)), url('images/background3.gif'); }
 
 /* The Global Spell Toggle */
 .hidden-magic { display: none !important; }

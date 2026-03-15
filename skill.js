@@ -1,19 +1,28 @@
-document.addEventListener('DOMContentLoaded', () => {
-// --- Howl's Magic Dial (Global Filtering) ---
-    const dialButtons = document.querySelectorAll('.dial-color');
+    document.addEventListener('DOMContentLoaded', () => {
+    
+    const quadrants = document.querySelectorAll('.quadrant');
+    const magicWheel = document.getElementById('magic-wheel');
     const skillCards = document.querySelectorAll('.skill-card');
     const projectCards = document.querySelectorAll('.project-card');
 
-    dialButtons.forEach(button => {
-        button.addEventListener('click', () => {
+    quadrants.forEach(quadrant => {
+        quadrant.addEventListener('click', () => {
             
-            // 1. Move the glowing active state to the clicked button
-            dialButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+            // 1. Get the spell variables from the HTML
+            const targetCategory = quadrant.getAttribute('data-target');
+            const targetTheme = quadrant.getAttribute('data-theme');
+            const rotationAngle = quadrant.getAttribute('data-rotation');
 
-            const targetCategory = button.getAttribute('data-target');
+            // 2. Spin the wheel to align with the top pointer!
+            magicWheel.style.transform = `rotate(${rotationAngle}deg)`;
 
-            // 2. Filter Skills
+            // 3. Change the Global Environment Theme
+            // Remove all existing themes from the body
+            document.body.classList.remove('theme-default', 'theme-blue', 'theme-red', 'theme-black');
+            // Add the new chosen theme
+            document.body.classList.add(targetTheme);
+
+            // 4. Filter the Skills
             skillCards.forEach(card => {
                 if (targetCategory === 'all' || card.classList.contains(targetCategory)) {
                     card.classList.remove('hidden-magic');
@@ -22,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // 3. Filter Projects
+            // 5. Filter the Projects
             projectCards.forEach(card => {
                 if (targetCategory === 'all' || card.getAttribute('data-category') === targetCategory) {
                     card.classList.remove('hidden-magic');
